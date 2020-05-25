@@ -1,4 +1,4 @@
-#Documentation for "Covid-19 Case Load in South African Provinces" Shiny App
+# Documentation for "Covid-19 Case Load in South African Provinces" Shiny App
 
 Author: Martin J Page
 Date: 26 May 2020
