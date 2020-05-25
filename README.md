@@ -1,6 +1,6 @@
 # Documentation for "Covid-19 Case Load in South African Provinces" Shiny App
 
-Author: Martin J Page
+Author: Martin J Page  
 Date: 26 May 2020
 
 **Summary**: This app generates a plot of the total covid-19 case load per province in South Africa for a selected date.
