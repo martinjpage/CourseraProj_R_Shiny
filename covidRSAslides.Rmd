@@ -1,0 +1,96 @@
+---
+title: "Visualising the Covid-19 Case Load for South Africa"
+author: "Martin J Page"
+date: "26/05/2020"
+output: slidy_presentation
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Covid-19 in South Africa
+
+- Covid-19 is a rapidly developing situation across the world  
+- Citizens are interesting in the number of cases in their local areas
+- This app allows users to view the total number of cases per province in South Africa between 24 March 2020 and 24 May 2020
+
+
+```{r, warning=FALSE, error=FALSE, message=FALSE}
+  library(leaflet)
+  library(readr)
+  library(dplyr)
+
+    url <- "https://raw.githubusercontent.com/martinjpage/datasciencecoursera/master/RSACovid.csv"
+    data <- read_csv(url)
+    
+    df <- data %>% group_by(Provinces)
+    
+      leaflet() %>% addTiles() %>% 
+            addMarkers(lat = df$latit, lng = df$long,
+                             label  = as.character(df$Provinces))
+
+```
+
+
+
+## Collecting the Data
+
+- The data were programatically scraped from situation reports published on https://sacoronavirus.co.za/, a government website 
+- The code for the webscraping is available at https://github.com/martinjpage/datasciencecoursera/blob/master/webscaping
+- This table was joined with a table of the coordiates of the capital cities of each province
+- The final data was read to an output file available at: https://github.com/martinjpage/datasciencecoursera/blob/master/RSACovid.csv
+- Example of the final data:
+
+```{r, warning=FALSE, error=FALSE, message=FALSE}
+    library(readr)
+    url <- "https://raw.githubusercontent.com/martinjpage/datasciencecoursera/master/RSACovid.csv"
+    data <- read_csv(url)
+    head(data)
+```
+
+
+## The App: How it Works
+- The app is very easy to use
+- Users select a date from an input calendar of available dates
+- After clicking submit, the map will update to display the total case load per province for that day
+- Documentation for using the app is provided in the sidebar
+- The map is rendered using Leaflet
+- Extract of plotting code from the server:
+
+```{r, echo=TRUE, eval=FALSE}
+output$plot1 <- renderLeaflet({
+        df <- data %>% filter(Date == input$date)
+        leaflet() %>% addTiles() %>% 
+            addCircleMarkers(lat = df$latit, lng = df$long,
+                             label  = as.character(df$Total), 
+                             radius = sqrt(df$Total), 
+                             color = RColorBrewer::brewer.pal(9, "Set1"), opacity = 0.8)
+    })
+```
+
+
+
+## Check it out for yourself
+
+- View the app at https://martinjpage.shinyapps.io/CovidRSA2/
+- Example of the output plot with the date selected as 17 April 2020
+
+```{r, message=FALSE, warning=FALSE}
+    library(dplyr)
+    library(readr)
+    library(leaflet)
+
+    url <- "https://raw.githubusercontent.com/martinjpage/datasciencecoursera/master/RSACovid.csv"
+    data <- read_csv(url)
+    
+     df <- data %>% filter(Date == "2020-04-17")
+        leaflet() %>% addTiles() %>% 
+            addCircleMarkers(lat = df$latit, lng = df$long,
+                             label  = as.character(df$Total), 
+                             radius = sqrt(df$Total), 
+                             color = RColorBrewer::brewer.pal(9, "Set1"), opacity = 0.8)
+```
+
+
