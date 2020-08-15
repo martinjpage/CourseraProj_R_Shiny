@@ -3,7 +3,9 @@
 Author: Martin J Page  
 Date: 26 May 2020
 
-**Summary**: This app generates a plot of the total covid-19 case load per province in South Africa for a selected date.
+**Live App**: https://martinjpage.shinyapps.io/CovidRSA2/  
+
+**Summary**: This app generates a plot of the total covid-19 case load per province in South Africa for a selected date, between 3 March 2020 and 24 May 2020.  
 
 **How to use**: Pick a date from the calendar in the sidebar (unavailable dates are disabled). Click submit. The plot in the main panel will update and display the total covid-19 case load per province in South Africa.  
 
